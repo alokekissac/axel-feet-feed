@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Axel Feet Feed 👣</title>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    #gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    img { width: 200px; height: auto; border-radius: 10px; box-shadow: 0 0 5px #aaa; }
+  </style>
+</head>
+<body>
+  <h1>Live Axel’s Feet Feed 👣</h1>
+  <div id="gallery"></div>
+
+  <script>
+    async function fetchImages() {
+      const res = await fetch('http://localhost:5000/api/images');
+      const data = await res.json();
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = '';
+      data.forEach(item => {
+        const img = document.createElement('img');
+        img.src = item.image_url;
+        img.alt = item.username;
+        gallery.appendChild(img);
+      });
+    }
+
+    fetchImages();
+    setInterval(fetchImages, 5000);
+  </script>
+</body>
+</html>
